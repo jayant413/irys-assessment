@@ -22,4 +22,8 @@
 
 ### Performance
 
-- Using Redis for fast data retrival
+- Using Redis for fast data retrival for frequently accessed data.
+
+### Portability
+
+- Using Docker to ensure consistent execution across different environments.

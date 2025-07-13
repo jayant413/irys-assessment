@@ -100,7 +100,7 @@ onMounted(async () => {
 
     <!-- Bulk Upload Modal -->
     <BulkUploadModal
-      v-if="showBulkUploadModal"
+      v-show="showBulkUploadModal"
       @close="showBulkUploadModal = false"
     />
   </div>

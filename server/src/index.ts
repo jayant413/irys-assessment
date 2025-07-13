@@ -2,16 +2,18 @@ import express from "express";
 import helmet from "helmet";
 import compression from "compression";
 import { connectDatabase } from "./config/database";
+import { connectRedis } from "./config/redis";
 import productRoutes from "./routes/productRoutes";
 import corsConfig from "./middleware/corsConfig";
 import dotenv from "dotenv";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 // config
 dotenv.config();
 connectDatabase();
+connectRedis();
 app.use(corsConfig);
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));

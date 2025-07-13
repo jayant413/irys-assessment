@@ -70,7 +70,9 @@ onMounted(() => {
               {{ currentProduct.isEnabled ? "Disable" : "Enable" }}
             </Button>
             <Button
-              @click="handleDeleteProduct(productId, currentProduct?.name)"
+              @click="
+                handleDeleteProduct(productId, currentProduct?.name, true)
+              "
               type="error"
             >
               <Trash2 class="w-4 h-4 mr-2" />

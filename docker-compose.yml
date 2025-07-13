@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: irys_server
+    ports:
+      - "8080:8080"
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/irys_products
+      REDIS_URL: redis://redis:6379
+      CORS_ORIGIN: http://localhost:5173
+      PORT: 8080
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - irysnet
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: irys_client
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8080/api
+    depends_on:
+      - server
+    networks:
+      - irysnet
+
+  redis:
+    image: redis:latest
+    container_name: irys_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    networks:
+      - irysnet
+    # volumes:
+    #   - redis_data:/data
+
+  mongodb:
+    image: mongo:latest
+    container_name: irys_mongodb
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    networks:
+      - irysnet
+    # volumes:
+    #   - mongo_data:/data/db
+
+networks:
+  irysnet:
+    driver: bridge
+# To persist data
+# volumes:
+#   mongo_data:
+#   redis_data:

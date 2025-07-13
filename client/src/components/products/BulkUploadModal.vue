@@ -15,6 +15,10 @@ import useProduct from "../../composables/useProduct";
 import Input from "../ui/Input.vue";
 import Button from "../ui/Button.vue";
 
+defineEmits<{
+  (e: "close"): void;
+}>();
+
 const {
   insertSampleProducts,
   jsonInput,

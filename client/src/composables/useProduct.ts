@@ -224,7 +224,11 @@ export default function useProduct() {
   };
 
   // Delete Product
-  const handleDeleteProduct = (id: string, name: string) => {
+  const handleDeleteProduct = (
+    id: string,
+    name: string,
+    goBack = false
+  ): void => {
     if (!id) return;
     dialog.warning({
       title: "Delete Product",
@@ -235,6 +239,7 @@ export default function useProduct() {
         try {
           await productStore.deleteProduct(id);
           message.success("Product deleted successfully");
+          if (goBack) router.back();
         } catch (error) {
           message.error("Failed to delete product");
         }

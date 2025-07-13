@@ -6,6 +6,13 @@ import {
   bulkUploadSchema,
   querySchema,
 } from "../validation/productValidation";
+import {
+  getCachedData,
+  setCachedData,
+  deleteCachedData,
+  generateCacheKey,
+  bulkDeleteCache,
+} from "../utils/redis";
 
 export class ProductController {
   // Get products with pagination and filters
@@ -31,6 +38,16 @@ export class ProductController {
         sortBy,
         sortOrder,
       } = value;
+
+      // Generate cache key based on query parameters
+      const cacheKey = generateCacheKey("products", value);
+
+      // Try to get from cache first
+      const cachedData = await getCachedData(cacheKey);
+      if (cachedData) {
+        res.json(cachedData);
+        return;
+      }
 
       // Build filter object
       const filter: any = {};
@@ -66,7 +83,7 @@ export class ProductController {
       const hasNext = page < totalPages;
       const hasPrev = page > 1;
 
-      res.json({
+      const responseData = {
         products,
         pagination: {
           currentPage: page,
@@ -78,7 +95,12 @@ export class ProductController {
           hasPrev,
           limit,
         },
-      });
+      };
+
+      // Cache the response for 5 minutes (300 seconds)
+      await setCachedData(cacheKey, responseData, 300);
+
+      res.json(responseData);
     } catch (error) {
       console.error("Error fetching products:", error);
       res.status(500).json({ error: "Internal server error" });
@@ -89,12 +111,26 @@ export class ProductController {
   async getProductById(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
+
+      // Generate cache key for single product
+      const cacheKey = `product:${id}`;
+
+      // Try to get from cache first
+      const cachedData = await getCachedData(cacheKey);
+      if (cachedData) {
+        res.json(cachedData);
+        return;
+      }
+
       const product = await Product.findById(id);
 
       if (!product) {
         res.status(404).json({ error: "Product not found" });
         return;
       }
+
+      // Cache the product for 1 minute (60 seconds)
+      await setCachedData(cacheKey, product, 60);
 
       res.json(product);
     } catch (error) {
@@ -117,6 +153,9 @@ export class ProductController {
 
       const product = new Product(value);
       await product.save();
+
+      // Invalidate products list cache when a new product is created
+      await this.invalidateProductsCache();
 
       res.status(201).json(product);
     } catch (error: any) {
@@ -153,6 +192,10 @@ export class ProductController {
         return;
       }
 
+      // Invalidate both single product cache and products list cache
+      await deleteCachedData(`product:${id}`);
+      await this.invalidateProductsCache();
+
       res.json(product);
     } catch (error: any) {
       console.error("Error updating product:", error);
@@ -170,6 +213,10 @@ export class ProductController {
         res.status(404).json({ error: "Product not found" });
         return;
       }
+
+      // Invalidate both single product cache and products list cache
+      await deleteCachedData(`product:${id}`);
+      await this.invalidateProductsCache();
 
       res.json({ message: "Product deleted successfully" });
     } catch (error) {
@@ -199,6 +246,10 @@ export class ProductController {
         res.status(404).json({ error: "Product not found" });
         return;
       }
+
+      // Invalidate both single product cache and products list cache
+      await deleteCachedData(`product:${id}`);
+      await this.invalidateProductsCache();
 
       res.json(product);
     } catch (error) {
@@ -233,6 +284,9 @@ export class ProductController {
           ordered: false, // Continue on error
         });
 
+        // Invalidate products list cache after bulk upload
+        await this.invalidateProductsCache();
+
         res.status(201).json({
           message: "Bulk upload completed successfully",
           created: createdProducts.length,
@@ -240,7 +294,6 @@ export class ProductController {
         });
       } catch (error) {
         throw error;
-      } finally {
       }
     } catch (error: any) {
       console.error("Error in bulk upload:", error);
@@ -256,6 +309,15 @@ export class ProductController {
     } catch (error) {
       console.error("Error fetching categories:", error);
       res.status(500).json({ error: "Internal server error" });
+    }
+  }
+
+  // Helper method to invalidate products cache
+  private async invalidateProductsCache(): Promise<void> {
+    try {
+      await bulkDeleteCache("products:*");
+    } catch (error) {
+      console.error("Error invalidating products cache:", error);
     }
   }
 }
