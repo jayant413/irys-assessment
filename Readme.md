@@ -8,7 +8,7 @@
 
    ```
    git clone git@github.com:jayant413/irys-assessment.git
-   cd irys-assesment
+   cd irys-assessment
    ```
 
 - Add Environment variables ( Can skip if running with Docker )
