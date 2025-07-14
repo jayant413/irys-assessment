@@ -38,7 +38,7 @@
   docker-compose up -d
   ```
 
-- stop the container
+- stop the containers
 
   ```
   docker-compose down
@@ -55,10 +55,9 @@
   npm run dev
   ```
 
-3. Visit the app on
-   ```
-   http://localhost:5173
-   ```
+3. ## Visit the app on
+
+- [http://localhost:5173](http://localhost:5173)
 
 ## Fuctional Requirements
 
