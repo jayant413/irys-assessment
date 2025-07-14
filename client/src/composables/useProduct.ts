@@ -308,7 +308,8 @@ const productsSampleData = [
     category: "Electronics",
     sku: "IPHONE15PRO-001",
     stock: 50,
-    imageUrl: "https://example.com/iphone15pro.jpg",
+    imageUrl:
+      "https://tecnoga.com.py/wp-content/uploads/2023/09/4-3-2048x2048.jpg",
     tags: ["smartphone", "apple", "flagship"],
   },
   {
@@ -318,7 +319,8 @@ const productsSampleData = [
     category: "Electronics",
     sku: "MACBOOKAIR-M3-001",
     stock: 30,
-    imageUrl: "https://example.com/macbookair.jpg",
+    imageUrl:
+      "https://imgs.nmplus.hk/wp-content/uploads/2023/10/screenshot-2023-10-25-at-12.32.11-pm_62373383565389af71c918.jpg",
     tags: ["laptop", "apple", "m3"],
   },
   {
@@ -328,7 +330,62 @@ const productsSampleData = [
     category: "Sports",
     sku: "NIKE-AIRMAX90-001",
     stock: 100,
-    imageUrl: "https://example.com/airmax90.jpg",
+    imageUrl:
+      "https://www.driving-ideas.de/images/g/nike%20air%20max%2090%20essential-061ruq.jpg",
     tags: ["shoes", "nike", "running"],
+  },
+  {
+    name: "The Lean Startup",
+    description: "Book on entrepreneurship and lean methodology",
+    price: 19.99,
+    category: "Books",
+    sku: "BOOK-LEANSTARTUP-001",
+    stock: 200,
+    imageUrl: "https://storiesmart.com/images/book-50-big.jpg",
+    tags: ["book", "startup", "business"],
+  },
+  {
+    name: "LEGO Star Wars Millennium Falcon",
+    description: "Iconic Star Wars spaceship building kit",
+    price: 159.99,
+    category: "Toys",
+    sku: "LEGO-SW-MF-001",
+    stock: 40,
+    imageUrl:
+      "https://asset.conrad.com/media10/isa/160267/c1/-/en/001934660PI02/image.jpg",
+    tags: ["lego", "star wars", "toy"],
+  },
+  {
+    name: "Patagonia Down Sweater",
+    description: "Lightweight and warm down jacket",
+    price: 229.99,
+    category: "Clothing",
+    sku: "PATAGONIA-DOWN-001",
+    stock: 25,
+    imageUrl:
+      "https://www.bfgcdn.com/1500_1500_90/104-3820/patagonia-womens-down-sweater-hoody-down-jacket-detail-8.jpg",
+    tags: ["jacket", "patagonia", "outdoor"],
+  },
+  {
+    name: 'Samsung 55" QLED 4K TV',
+    description: "Ultra HD Smart TV with vibrant colors",
+    price: 699.99,
+    category: "Electronics",
+    sku: "SAMSUNG-QLED55-001",
+    stock: 20,
+    imageUrl:
+      "https://images-na.ssl-images-amazon.com/images/I/91LJVJ7VasL._AC_SL1500_.jpg",
+    tags: ["tv", "samsung", "qled"],
+  },
+  {
+    name: "Yoga Mat Pro",
+    description: "Non-slip, eco-friendly yoga mat",
+    price: 39.99,
+    category: "Sports",
+    sku: "YOGAMAT-PRO-001",
+    stock: 80,
+    imageUrl:
+      "https://i5.walmartimages.com/seo/Manduka-Black-Mat-PRO-Yoga-Mat_f9f245b1-344e-40c2-aa24-de214bf51b6f.07bea10c3ce0403337fde0c12aaa44bb.jpeg",
+    tags: ["yoga", "fitness", "mat"],
   },
 ];

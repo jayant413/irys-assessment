@@ -122,9 +122,9 @@ onMounted(() => {
             </div>
             <div
               v-if="currentProduct.imageUrl"
-              class="ml-8 flex-shrink-0 w-32 h-32 bg-gray-100 rounded-lg overflow-hidden border"
+              class="ml-8 flex-shrink-0 w-32 h-32 bg-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all hover:scale-105 duration-300"
             >
-              <img
+              <n-image
                 :src="currentProduct.imageUrl"
                 :alt="currentProduct.name"
                 class="w-full h-full object-cover"

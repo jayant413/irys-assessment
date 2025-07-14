@@ -43,12 +43,12 @@ const handleImageError = (e: Event) => {
     <div
       class="w-16 h-16 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden flex-shrink-0"
     >
-      <img
+      <n-image
         v-if="product.imageUrl"
         :src="product.imageUrl"
         :alt="product.name"
-        @error="handleImageError"
         class="w-full h-full object-cover"
+        @error="handleImageError"
       />
       <Package v-else class="w-8 h-8 text-gray-400" />
     </div>
