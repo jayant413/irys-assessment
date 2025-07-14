@@ -1,0 +1,25 @@
+{
+  "name": "irys_assignment",
+  "version": "1.0.0",
+  "description": "- Get products apis supporting with pagination and filtering.\r - Product upload with validation (using zod).\r - Products bulk (list) upload api also disable old products.\r - Toggle product status api.",
+  "homepage": "https://github.com/jayant413/irys-product-management-assessment#readme",
+  "bugs": {
+    "url": "https://github.com/jayant413/irys-product-management-assessment/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayant413/irys-product-management-assessment.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deps": "cd client && npm i && cd ../server && npm i && cd .. && npm i",
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\""
+  },
+  "dependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
