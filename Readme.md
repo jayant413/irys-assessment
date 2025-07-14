@@ -1,6 +1,6 @@
 ## Live Link
 
-[https://irys-assessment.vercel.app](https://irys-assessment.vercel.app)
+[https://irys-product-manager.vercel.app](https://irys-product-manager.vercel.app)
 
 ## Instructions to run project locally
 
