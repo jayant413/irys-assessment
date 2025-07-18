@@ -12,7 +12,7 @@ import corsConfig from "./middleware/corsConfig";
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 
 const limiter = rateLimit({
   windowMs: 60 * 1000 * 1, // 1 minute
