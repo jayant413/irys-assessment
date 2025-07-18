@@ -2,7 +2,6 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import express from "express";
 import compression from "compression";
-import rateLimit from "express-rate-limit";
 //
 import { connectDatabase } from "./config/database";
 import { connectRedis } from "./config/redis";
@@ -11,16 +10,6 @@ import corsConfig from "./middleware/corsConfig";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-
-app.set("trust proxy", 1);
-
-const limiter = rateLimit({
-  windowMs: 60 * 1000 * 1, // 1 minute
-  max: 50, // 50 requests per minute
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: "Too many requests, please try again later.",
-});
 
 // config
 dotenv.config();
@@ -33,7 +22,6 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 // Security middleware
 app.use(helmet());
 app.use(compression());
-app.use(limiter);
 
 app.get("/", (req, res) => {
   res.json({
